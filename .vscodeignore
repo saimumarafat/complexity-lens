@@ -1,0 +1,6 @@
+.vscode/**
+.github/**
+samples/**
+test/**
+CONTRIBUTING.md
+*.vsix

@@ -1,0 +1,146 @@
+{
+  "name": "complexity-lens",
+  "displayName": "Complexity Lens",
+  "description": "See the time and space complexity of your DSA code, including best, average and worst case, with growth-curve graphs.",
+  "version": "0.2.0",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Visualization",
+    "Education",
+    "Other"
+  ],
+  "keywords": [
+    "big-o",
+    "complexity",
+    "time complexity",
+    "space complexity",
+    "dsa",
+    "algorithms",
+    "leetcode",
+    "best case",
+    "worst case",
+    "visualization"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:python",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "onLanguage:java",
+    "onLanguage:c",
+    "onLanguage:cpp",
+    "onLanguage:csharp"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "complexityLens.analyzeFile",
+        "title": "Complexity Lens: Analyze Current File",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "complexityLens.analyzeSelection",
+        "title": "Complexity Lens: Analyze Selection"
+      },
+      {
+        "command": "complexityLens.showFunction",
+        "title": "Complexity Lens: Show Function"
+      },
+      {
+        "command": "complexityLens.toggleCodeLens",
+        "title": "Complexity Lens: Toggle CodeLens"
+      },
+      {
+        "command": "complexityLens.toggleAnnotations",
+        "title": "Complexity Lens: Toggle Inline Annotations"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "complexityLens.analyzeFile",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "complexityLens.analyzeFile",
+          "group": "navigation",
+          "when": "editorLangId =~ /^(python|javascript|typescript|javascriptreact|typescriptreact|java|c|cpp|csharp)$/"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "complexityLens.analyzeSelection",
+          "group": "navigation@9",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "complexityLens.analyzeFile",
+          "group": "navigation@9",
+          "when": "!editorHasSelection && editorLangId =~ /^(python|javascript|typescript|javascriptreact|typescriptreact|java|c|cpp|csharp)$/"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Complexity Lens",
+      "properties": {
+        "complexityLens.codeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show time/space complexity above every function."
+        },
+        "complexityLens.inlineAnnotations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the cumulative cost at the end of each loop header."
+        },
+        "complexityLens.highlightHotspots": {
+          "type": "boolean",
+          "default": true,
+          "description": "Tint the line(s) that dominate a function's running time."
+        },
+        "complexityLens.analyzeOnType": {
+          "type": "boolean",
+          "default": true,
+          "description": "Re-analyze while typing (debounced)."
+        },
+        "complexityLens.statusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the worst complexity of the active file in the status bar."
+        }
+      }
+    }
+  },
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#16181d",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saimumarafat/complexity-lens.git"
+  },
+  "bugs": {
+    "url": "https://github.com/saimumarafat/complexity-lens/issues"
+  },
+  "homepage": "https://github.com/saimumarafat/complexity-lens#readme",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "scripts": {
+    "test": "node test/analyzer.test.js && node test/cases.test.js && node test/panel.smoke.js && node test/extension.smoke.js"
+  }
+}
